@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using AutoService_Order.DB;
 using AutoService_Order.Models;
 using AutoService_Order.Views;
@@ -31,6 +32,8 @@ public partial class MainWindowViewModel : ViewModelBase
         var vm = ActivatorUtilities.CreateInstance<WorkWindowViewModel>(
             _provider, SelectedService, ClientName, AutoName);
                 var win =  _provider.GetService<WorksWindow>();
+                win.DataContext = vm;
+                vm.CloseAction(win.Close);
                     win.Show();
     }
     

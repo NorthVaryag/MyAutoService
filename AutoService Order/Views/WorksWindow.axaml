@@ -7,14 +7,22 @@
         x:Class="AutoService_Order.Views.WorksWindow"
         x:DataType="ViewModels:WorkWindowViewModel"
         Title="WorksWindow">
-    <Grid RowDefinitions="* Auto *"
-          ColumnDefinitions="* Auto *">
-        <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Works}">
+    <Grid RowDefinitions="* Auto"
+          ColumnDefinitions="* Auto">
+        <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Works}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding WorkName}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Work.WorkName}" />
+                        <TextBlock Text="{Binding Work.WorkName}"></TextBlock>
+                        <TextBlock Text="{Binding Work.Price}"></TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Left" Command="{Binding Cancel}">Cancel</Button>
+            <Button HorizontalAlignment="Right" HorizontalContentAlignment="Center" >Receipt</Button>
+        </StackPanel>
     </Grid>
 </Window>
