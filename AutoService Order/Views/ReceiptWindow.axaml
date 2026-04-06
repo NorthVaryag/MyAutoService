@@ -2,8 +2,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ViewModels="clr-namespace:AutoService_Order.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AutoService_Order.Views.ReceiptWindow"
+        x:DataType="ViewModels:ReceiptWindowViewModel"
         Title="ReceiptWindow">
         
+        <Grid>
+                <TextBlock Text="{Binding  }"></TextBlock>
+                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Works}">
+                        <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding WorkName}"></TextBlock>
+                                                <TextBlock Text="   $"></TextBlock>
+                                                <TextBlock Text="{Binding Price}"></TextBlock>
+                                                
+                                        </StackPanel>
+                                </DataTemplate>
+                        </ListBox.ItemTemplate>
+                </ListBox>
+        </Grid>
 </Window>
