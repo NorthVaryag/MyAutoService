@@ -15,6 +15,8 @@ public partial class ReceiptWindowViewModel : ViewModelBase
     
     [ObservableProperty] private string _auto;
     
+    [ObservableProperty] private decimal _total;
+    
     private IServiceProvider _serviceProvider;
     public ReceiptWindowViewModel(IServiceProvider serviceProvider, List<Work> works, string clientName, string autoName)
     {
@@ -22,14 +24,17 @@ public partial class ReceiptWindowViewModel : ViewModelBase
             _works = works;
             _client = clientName;
             _auto = autoName;
+            _total = TotalPrice();
     }
 
-    public void WorksEnd()
+    
+    public decimal TotalPrice()
     {
+        decimal count = 0; 
         foreach (var work in _works)
         {
-            
+            count += work.Price;
         }
-
+        return count;
     }
 }
