@@ -65,5 +65,9 @@ public partial class ReceiptWindowViewModel : ViewModelBase
         return price;
     }
 
-    
+    [RelayCommand]
+    public void SaveDB()
+    {
+        
+    }
 }

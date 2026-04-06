@@ -33,6 +33,7 @@ sealed class Program
                 s.AddTransient<WorkRepository>();
                 s.AddTransient<ReceiptWindowViewModel>();
                 s.AddTransient<ReceiptWindow>();
+                s.AddTransient<ReceiptRepository>();
             }).
             Build();
         BuildAvaloniaApp(host.Services)
