@@ -8,9 +8,18 @@
         x:DataType="ViewModels:ReceiptWindowViewModel"
         Title="ReceiptWindow">
         
-        <Grid>
-                <TextBlock Text="{Binding  }"></TextBlock>
-                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Works}">
+        <Grid RowDefinitions="Auto Auto Auto"
+              ColumnDefinitions="Auto Auto">
+                <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left">Client: </TextBlock>
+                        <TextBlock Text="{Binding Client}"></TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left">Auto: </TextBlock>
+                        <TextBlock Text="{Binding Auto}"></TextBlock>
+                </StackPanel>
+                
+                <ListBox Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Works}">
                         <ListBox.ItemTemplate>
                                 <DataTemplate>
                                         <StackPanel Orientation="Horizontal">

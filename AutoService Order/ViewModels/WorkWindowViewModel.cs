@@ -18,12 +18,14 @@ public partial class WorkWindowViewModel :  ViewModelBase
     private IServiceProvider _serviceProvider;
     private Action _closeAction;
     private string _client;
+    private string _auto;
     
     public WorkWindowViewModel(IServiceProvider serviceProvider, WorkRepository  repository, Service selectedService, string clientName, string  autoName)
     {
         Works = repository.GetWorkByService(selectedService).Select(work => new CheckWork(work)).ToList();
         _serviceProvider = serviceProvider;
         _client = clientName;
+        _auto = autoName;
     }
 
     public void CloseAction(Action action)
@@ -54,7 +56,7 @@ public partial class WorkWindowViewModel :  ViewModelBase
         {
             return;
         }
-        var vm = ActivatorUtilities.CreateInstance<ReceiptWindowViewModel>(_serviceProvider, worksIsCheck, _client);
+        var vm = ActivatorUtilities.CreateInstance<ReceiptWindowViewModel>(_serviceProvider, worksIsCheck, _client,  _auto);
         var win =  _serviceProvider.GetService<ReceiptWindow>();
         win.DataContext = vm;
         win.Show();
