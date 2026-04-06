@@ -8,7 +8,7 @@
         x:DataType="ViewModels:ReceiptWindowViewModel"
         Title="ReceiptWindow">
         
-        <Grid RowDefinitions="Auto Auto Auto Auto"
+        <Grid RowDefinitions="Auto Auto Auto Auto Auto Auto Auto"
               ColumnDefinitions="Auto Auto">
                 <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
                         <TextBlock HorizontalAlignment="Left">Client: </TextBlock>
@@ -32,8 +32,19 @@
                 </ListBox>
                 
                 <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
-                        <TextBlock HorizontalAlignment="Left">Total Price: </TextBlock>
+                        <TextBlock HorizontalAlignment="Left">Price: $</TextBlock>
                         <TextBlock Text="{Binding Total}"></TextBlock>
+                </StackPanel> 
+                
+                <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left">Discount: </TextBlock>
+                        <TextBlock Text="{Binding Discount, StringFormat={}{0}%}"></TextBlock>
                 </StackPanel>
+                
+                <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal">
+                        <TextBlock HorizontalAlignment="Left">Total Price: $</TextBlock>
+                        <TextBlock Text="{Binding TDPrice}"></TextBlock>
+                </StackPanel> 
+                <Button Grid.Row="6" Grid.Column="1">Apply</Button>
         </Grid>
 </Window>

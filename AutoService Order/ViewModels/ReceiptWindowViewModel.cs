@@ -17,16 +17,21 @@ public partial class ReceiptWindowViewModel : ViewModelBase
     
     [ObservableProperty] private decimal _total;
     
+    [ObservableProperty] private int _discount;
+    
+    [ObservableProperty] private decimal _tDPrice;
+    
     private IServiceProvider _serviceProvider;
     public ReceiptWindowViewModel(IServiceProvider serviceProvider, List<Work> works, string clientName, string autoName)
     {
             _serviceProvider = serviceProvider;
-            _works = works;
-            _client = clientName;
-            _auto = autoName;
-            _total = TotalPrice();
+            Works = works;
+            Client = clientName;
+            Auto = autoName;
+            Total = TotalPrice();
+            Discount = PriceDiscount();
+            TDPrice = TotalDiscountPrice();
     }
-
     
     public decimal TotalPrice()
     {
@@ -37,4 +42,28 @@ public partial class ReceiptWindowViewModel : ViewModelBase
         }
         return count;
     }
+
+    public int PriceDiscount()
+    {
+        int count = 0;
+        if (TotalPrice() >= 10000)
+        {
+            count = 10;
+        }
+        else if (TotalPrice() >= 5000)
+        {
+            count = 5;
+        }
+        return count;
+    }    
+    
+    public decimal TotalDiscountPrice()
+    {
+        decimal price = TotalPrice();
+        if (Discount != 0)
+            price -= TotalPrice() * Discount / 100;
+        return price;
+    }
+
+    
 }
