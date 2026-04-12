@@ -45,6 +45,7 @@
                         <TextBlock HorizontalAlignment="Left">Total Price: $</TextBlock>
                         <TextBlock Text="{Binding TDPrice}"></TextBlock>
                 </StackPanel> 
+                <Button Grid.Row="6" Grid.Column="0" Command="{Binding ToStart}">To Start</Button>
                 <Button Grid.Row="6" Grid.Column="1" Command="{Binding SaveDB}">Apply</Button>
         </Grid>
 </Window>

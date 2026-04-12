@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mime;
 using AutoService_Order.DB;
 using AutoService_Order.Models;
+using Avalonia;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -22,12 +25,17 @@ public partial class ReceiptWindowViewModel : ViewModelBase
     [ObservableProperty] private decimal _tDPrice;
     
     private IServiceProvider _serviceProvider;
-    public ReceiptWindowViewModel(IServiceProvider serviceProvider, List<Work> works, string clientName, string autoName)
+    
+    private OrderRepository _repository;
+    [ObservableProperty] private Service _service;
+    public ReceiptWindowViewModel(IServiceProvider serviceProvider, OrderRepository repository, Service service, List<Work> works, string clientName, string autoName)
     {
+        _repository = repository;
             _serviceProvider = serviceProvider;
             Works = works;
             Client = clientName;
             Auto = autoName;
+            Service = service;
             Total = TotalPrice();
             Discount = PriceDiscount();
             TDPrice = TotalDiscountPrice();
@@ -64,10 +72,28 @@ public partial class ReceiptWindowViewModel : ViewModelBase
             price -= TotalPrice() * Discount / 100;
         return price;
     }
-
+    
+    
+    [RelayCommand]
+    public void ToStart()
+    {
+        
+    }
+    
+    
     [RelayCommand]
     public void SaveDB()
     {
-        
+        Order order = new Order
+        {
+            ClientName = Client,
+            CarModel = Auto,
+            ServiceId = Service.Id,
+            DiscountPercent = Discount,
+            OrderDate = DateTime.Now,
+            TotalAmount = TDPrice
+        };
+       
+        _repository.InsertOrder(order, Works);
     }
 }

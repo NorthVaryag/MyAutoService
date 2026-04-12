@@ -23,6 +23,8 @@ public partial class MainWindowViewModel : ViewModelBase
         _provider = provider;
         Services = repository.GetAllServces();
     }
+    
+    
 
     [RelayCommand]
     public void StartService()
@@ -36,8 +38,4 @@ public partial class MainWindowViewModel : ViewModelBase
                 vm.CloseAction(win.Close);
                     win.Show();
     }
-    
-    
-    
-    
 }
