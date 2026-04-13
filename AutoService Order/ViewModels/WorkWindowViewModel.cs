@@ -28,6 +28,7 @@ public partial class WorkWindowViewModel :  ViewModelBase
         _serviceProvider = serviceProvider;
         _client = clientName;
         _auto = autoName;
+        _service = selectedService;
     }
 
     public void CloseAction(Action action)
@@ -58,7 +59,7 @@ public partial class WorkWindowViewModel :  ViewModelBase
         {
             return;
         }
-        var vm = ActivatorUtilities.CreateInstance<ReceiptWindowViewModel>(_serviceProvider, worksIsCheck, _client,  _auto, _service);
+        var vm = ActivatorUtilities.CreateInstance<ReceiptWindowViewModel>(_serviceProvider, _service,worksIsCheck, _client,  _auto );
         var win =  _serviceProvider.GetService<ReceiptWindow>();
         win.DataContext = vm;
         win.Show();

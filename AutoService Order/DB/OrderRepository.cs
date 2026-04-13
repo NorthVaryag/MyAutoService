@@ -17,8 +17,8 @@ public class OrderRepository
     public void InsertOrder(Order order, List<Work> works)
     {
         var sql1 = "INSERT INTO auto_service_db.orders (id, client_name, car_model, service_id, total_amount, discount_percent, order_date) VALUES (0, @client_name, @car_model, @service_id, @total_amount, @discount_percent, @order_date);";
-        var sql2 = "SELECT max(id) FROM auto_service_db.orders;";
-        var sql3 = "INSERT INTO auto_service_db.order_items (order_id, work_id, price) VALUES (@order_id, @work_id, @price);";
+        var sql2 = "SELECT max(id) as id FROM auto_service_db.orders;";
+        var sql3 = "INSERT INTO auto_service_db.order_items (order_id, work_id, work_price) VALUES (@order_id, @work_id, @work_price);";
         
         connection.Open();
         // создание транзакции
@@ -58,7 +58,7 @@ public class OrderRepository
                 {
                     mc.Parameters.AddWithValue("order_id", id);
                     mc.Parameters.AddWithValue("work_id", work.Id);
-                    mc.Parameters.AddWithValue("price", work.Price);
+                    mc.Parameters.AddWithValue("work_price", work.Price);
                     mc.ExecuteNonQuery();
                 } 
             }

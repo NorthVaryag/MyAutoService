@@ -17,11 +17,12 @@ public class ServiceRepository
 
     public List<Service> GetAllServces()
     {
+        connection.Open();
         List<Service> serviceList = new List<Service>();
         string sql = "select * from services";
         try
         {
-            connection.Open();
+            
             using (var mc = new MySqlCommand(sql, connection))
             using (var dr = mc.ExecuteReader())
             {
