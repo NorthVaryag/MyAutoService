@@ -18,12 +18,18 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] List<Service> services;
     [ObservableProperty] Service selectedService;
     
+    
+    private Action _closeAction;
     public MainWindowViewModel(IServiceProvider provider, ServiceRepository repository)
     {
         _provider = provider;
         Services = repository.GetAllServces();
     }
     
+    public void CloseAction(Action action)
+    {
+        _closeAction  = action;
+    }
     
 
     [RelayCommand]
@@ -37,5 +43,6 @@ public partial class MainWindowViewModel : ViewModelBase
                 win.DataContext = vm;
                 vm.CloseAction(win.Close);
                     win.Show();
+                    _closeAction?.Invoke();
     }
 }

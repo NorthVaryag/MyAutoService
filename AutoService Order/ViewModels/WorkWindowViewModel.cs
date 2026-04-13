@@ -62,8 +62,8 @@ public partial class WorkWindowViewModel :  ViewModelBase
         var vm = ActivatorUtilities.CreateInstance<ReceiptWindowViewModel>(_serviceProvider, _service,worksIsCheck, _client,  _auto );
         var win =  _serviceProvider.GetService<ReceiptWindow>();
         win.DataContext = vm;
+        vm.CloseAction(win.Close);
         win.Show();
-
-        _closeAction();
+        _closeAction?.Invoke();
     }
 }

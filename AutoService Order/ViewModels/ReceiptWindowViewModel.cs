@@ -1,12 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using AutoService_Order.DB;
 using AutoService_Order.Models;
+using AutoService_Order.Views;
 using Avalonia;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AutoService_Order.ViewModels;
 
@@ -23,6 +28,8 @@ public partial class ReceiptWindowViewModel : ViewModelBase
     [ObservableProperty] private int _discount;
     
     [ObservableProperty] private decimal _tDPrice;
+    
+    private Action _closeAction;
     
     private IServiceProvider _serviceProvider;
     
@@ -72,12 +79,20 @@ public partial class ReceiptWindowViewModel : ViewModelBase
             price -= TotalPrice() * Discount / 100;
         return price;
     }
-    
+   
+    public void CloseAction(Action action)
+    {
+        _closeAction  = action;
+    }
     
     [RelayCommand]
     public void ToStart()
     {
-        
+        var vm = ActivatorUtilities.CreateInstance<MainWindowViewModel>;
+        var  win = _serviceProvider.GetRequiredService<MainWindow>();
+        win.DataContext = vm;
+        win.Show(); 
+        _closeAction?.Invoke();
     }
     
     
